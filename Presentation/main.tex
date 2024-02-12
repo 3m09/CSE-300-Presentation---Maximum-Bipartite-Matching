@@ -2,7 +2,7 @@
 
 %--------------beamer---------------
 \usetheme{Warsaw}
-\usecolortheme{rose}
+\usecolortheme{seahorse}
 \usefonttheme{professionalfonts}
 \usepackage{tikz}
 \useinnertheme{rectangles}
@@ -77,18 +77,18 @@
 \begin{frame}{Introduction}
     
 
-\begin{block}{Definition}
-    A bipartrite graph is one whose vertices can be split into two independent groups U,V such that every edge connects between U and V.
+\begin{block}{Bipartite Graph}
+    A bipartite graph is one whose vertices can be split into two independent groups U,V such that every edge connects vertices of different groups.
 \end{block}
 \begin{alertblock}{Note}
- There can not be any edge in between U and in between V .\\
-     The graph is two colourable and doesn't have  cycles of odd length.
+ There can not be any edge between two vertices of U or two vertices of V .\\
+     The graph is two colourable and doesn't have cycles of odd length.
 
 \end{alertblock}
 
     \begin{figure}
         \centering
-        \begin{tikzpicture}
+		\begin{tikzpicture} 
             % Boys
             \node[fill=blue, circle] (b1) at (0,0) {1};
             \node[fill=blue, circle] (b2) at (0,-0.8) {2};
@@ -106,7 +106,7 @@
             
 
         \end{tikzpicture}
-        \caption{Fig: Visualization of bipartrite graph}
+        \caption{Fig: Visualization of bipartite graph}
     \end{figure}
 
 \end{frame}
@@ -125,8 +125,9 @@
 
 \begin{frame}{Example}
 In a picnic,there are 5 people and 5 food items.Some people express interest in some of the items.How can we satisfy maximum number of people while wasting minimum number of items?
-
-        \begin{tikzpicture}
+        \pause
+        \centering
+		\begin{tikzpicture} 
             % Boys
             \node[fill=blue, circle] (p1) at (0,0) {1};
             \node[fill=blue, circle] (p2) at (0,-0.8) {2};
@@ -168,24 +169,26 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
 \section{Greedy Approach}
     \begin{frame}{Greedy Approach}
         
-    
+        Person 1 starts by taking the first available item
+        \vspace{4 pt}
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             % Boys
             \node[fill=cyan, circle] (p1) at (0,0) {1};
             \node[fill=blue, circle] (p2) at (0,-0.8) {2};
             \node[fill=blue, circle] (p3) at (0,-1.6) {3};
              \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
-             
+            \node[fill=blue, circle] (p5) at (0,-3.2) {5}; 
             
             
             % Girls
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=cyan, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=green, rectangle] (f1) at (3,0) {1};
+            \node[fill=cyan, rectangle] (f2) at (3,-0.8) {2};
+            \node[fill=green, rectangle] (f3) at (3,-1.6) {3};
+            \node[fill=green, rectangle] (f4) at (3,-2.4) {4};
+            \node[fill=green, rectangle] (f5) at (3,-3.2) {5};
+        
             
             % Potential Pairs
            \draw[cyan,thick,->] (p1.east) --  (f2.west);
@@ -206,53 +209,57 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
 
         \end{tikzpicture}
     \end{frame}
-        \begin{frame}{Greedy Approach}
+    %     \begin{frame}{Greedy Approach}
         
-    Here,item 2 was already taken by person 1
-    \vspace{2 pt}
+    % Here,item 2 was already taken by person 1
+    % \pause
+    % \vspace{2 pt}
 
-        \begin{tikzpicture}
-            % Boys
-            \node[fill=cyan, circle] (p1) at (0,0) {1};
-            \node[fill=red, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+    %     \centering
+	% 	\begin{tikzpicture} 
+    %         % Boys
+    %         \node[fill=cyan, circle] (p1) at (0,0) {1};
+    %         \node[fill=red, circle] (p2) at (0,-0.8) {2};
+    %         \node[fill=blue, circle] (p3) at (0,-1.6) {3};
+    %          \node[fill=blue, circle] (p4) at (0,-2.4) {4};
+    %         \node[fill=blue, circle] (p5) at (0,-3.2) {5};
              
             
             
-            % Girls
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=cyan, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+    %         % Girls
+    %         \node[fill=green, rectangle] (f1) at (4,0) {1};
+    %         \node[fill=cyan, rectangle] (f2) at (4,-0.8) {2};
+    %         \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
+    %         \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
+    %         \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
             
-            % Potential Pairs
-           \draw[cyan,thick,->] (p1.east) --  (f2.west);
-            \draw[->] (p1) -- (f3);
-            \draw[red,thick,->] (p2) -- (f2);
-            \draw[->] (p2) -- (f3);
-            \draw[->] (p2) -- (f4);
-             \draw[->] (p3.east) -- (f1.west);
-              \draw[->] (p3.east) -- (f3.west);
-               \draw[->] (p3.east) -- (f5.west);
-                \draw[->] (p4.east) -- (f3.west);
-                  \draw[->] (p5.east) -- (f3.west);
-               \draw[->] (p5.east) -- (f5.west);
-                \draw[->] (p5.east) -- (f4.west);
+    %         % Potential Pairs
+    %        \draw[cyan,thick,->] (p1.east) --  (f2.west);
+    %         \draw[->] (p1) -- (f3);
+    %         \draw[red,thick,->] (p2) -- (f2);
+    %         \draw[->] (p2) -- (f3);
+    %         \draw[->] (p2) -- (f4);
+    %          \draw[->] (p3.east) -- (f1.west);
+    %           \draw[->] (p3.east) -- (f3.west);
+    %            \draw[->] (p3.east) -- (f5.west);
+    %             \draw[->] (p4.east) -- (f3.west);
+    %               \draw[->] (p5.east) -- (f3.west);
+    %            \draw[->] (p5.east) -- (f5.west);
+    %             \draw[->] (p5.east) -- (f4.west);
             
             
             
 
-        \end{tikzpicture}
+    %     \end{tikzpicture}
         
-    \end{frame}
+    % \end{frame}
         \begin{frame}{Greedy Approach}
         
-    
+            Making item 3, the only valid choice for person 2
+            \vspace{2 pt}
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             % Boys
             \node[fill=cyan, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
@@ -294,7 +301,8 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
     Here,item 1 was luckily unoccupied 
     \vspace{2 pt}
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             % Boys
             \node[fill=cyan, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
@@ -334,9 +342,11 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
                 \begin{frame}{Greedy Approach}
         
     Here,person 4 can not have anything and person 5 got a match luckily.
+
     \vspace{2 pt}
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             % Boys
             \node[fill=cyan, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
@@ -371,7 +381,8 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
             
 
         \end{tikzpicture}
-
+        \pause
+        \\
         We could only satisfy four guests.One guest is unhappy.
         
     \end{frame}
@@ -381,12 +392,14 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         \begin{column}{0.4\textwidth}
             % Text column
             \begin{itemize}
-                \item Given an instance of Bipartrite matching
+                \item Given an instance of bipartite matching
+                \pause
                 \item Reduce it to Max Flow Problem.
+                \pause
                 \item 
 Where the solution to the
 network 
-ow problem can
+flow problem can
 easily be used to find the
 solution to the bipartite
 matching.
@@ -397,7 +410,7 @@ matching.
             % Flowchart column
             \begin{figure}
                 \centering
-                \begin{tikzpicture}[shorten >=1pt,node distance=2cm,auto]
+		\begin{tikzpicture} [shorten >=1pt,node distance=2cm,auto]
                     % Nodes
                     \node[draw,rectangle] (A1) {Intance of Max Bipartite Matching};
                     \node[draw,rectangle] (B5) [below of=A1] {instance of network flow};
@@ -413,16 +426,22 @@ matching.
 \textbf{Approach: }\\
     \begin{itemize}
         \item Make all the edges directed if not and add 0 flow and 1 capacity for all edges.Expressed as 0/1 in Flow/Capacity format
-        \item add two new nodes: 
+        \pause
+        \item Add two new nodes: 
+        \pause
         \begin{enumerate}
             \item Source(S)
             \item Destination(t)
         \end{enumerate}
+        \pause
         \item 
-        Add nodes from source to People with flow/capacity=0/1.
+        Add nodes from source to person with flow/capacity=0/1.
+        \pause
         \item 
         Add nodes from food items to destination with 0 flow and 1 capacity
-        \item After applying network flow algorithm, flow>0 between the pairs indicates a matching.
+        \pause
+        \item After applying network flow algorithm, flow \textgreater{}
+        0 between the pairs indicates a matching.
         
     \end{itemize}
     
@@ -431,7 +450,8 @@ matching.
 \begin{frame}{Reduced to Network Flow}
 
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -510,7 +530,8 @@ matching.
 \begin{frame}{Solution to Network Flow Problem}
 
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -569,7 +590,8 @@ matching.
 \begin{frame}{Solution to Network Flow Problem}
 
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -628,7 +650,8 @@ matching.
 \begin{frame}{Solution to Network Flow Problem}
 
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -687,7 +710,8 @@ matching.
 \begin{frame}{Solution to Network Flow Problem}
 
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -746,7 +770,8 @@ matching.
 \begin{frame}{Solution to Network Flow Problem}
 
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -808,27 +833,54 @@ matching.
         \textbf{Pairs are} : 
         \begin{enumerate}
             \item Person 1,Item 2
+            \pause
             \item Person 2,Item 4
+            \pause
             \item Person 3,Item 1
+            \pause
             \item Person 4,Item 3
+            \pause
             \item Person 5,Item 5
         \end{enumerate}
-        Using greedy approach,we found 4 pairs which was not maximum.
+        \pause
+        Using greedy approach,we found 4 pairs which is not maximum.
 \end{frame}
+
+\section{Time Complexity}
+\begin{frame}{Running time analysis}
+\begin{enumerate}
+  \item<1-> How long does it take to solve the network flow problem on the new graph?
+  \pause
+  \item<2-> The running time of Edmond Karp's algorithm is O(m'C) where m' is
+  the number of edges in the new graph, and C = $\sum c_{e}$ where e = edge leaving the source and $c_{e}$ is the capacity of edge e.
+  \pause
+  \item<3-> C =  number of persons  = n
+
+  \pause
+  \item<4-> m' = 2n + m where m = number of edges in the original graph and n = number of people.
+  \pause
+  \item <5-> Hence, the running time of the algorithm is $$ O((2n + m)n) = O(mn + n^{2}) = O(nm) $$.
+\end{enumerate}
+
+\end{frame}
+
+
 \section{Extension}
-\begin{frame}{Extension of Maximum Bipartrite matching}
+\begin{frame}{Extension of Maximum Bipartite Matching}
     \begin{block}{Allowing multiple items for a person}
     What if a person is allowed to take multiple items?
 \end{block}
+\pause
     \begin{block}{Solution}
-        The capacity of edge connected the source and a person would be equal to the number of items that person is allowed to take.Then Network flow algorithm should be applied as usual.
+        The capacity of edge connected the source and a person would be equal to the number of items that person is allowed to take.Then Network Flow algorithm should be applied as usual.
     \end{block}
 \end{frame}
 
-\begin{frame}{Extension of Maximum Bipartrite matching}
+\begin{frame}{Extension of Maximum Bipartite Matching}
 For example if Person 2 is allowed to take 3 items and person 5 is allowed to take 2 items:
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -883,19 +935,21 @@ For example if Person 2 is allowed to take 3 items and person 5 is allowed to ta
     
     
 \end{frame}
-\begin{frame}{Extension of Maximum Bipartrite matching}
+\begin{frame}{Extension of Maximum Bipartite Matching}
     \begin{block}{Multiple copies of item available }
     What if an item has multiple instances?
 \end{block}
+\pause
     \begin{block}{Solution}
-        The capacity of edge connected the  item and Destination would be equal to the number of copies of the item . Then Network flow algorithm should be applied as usual.
+        The capacity of edge connected the item and Destination would be equal to the number of copies of the item. Then Network Flow algorithm should be applied as usual.
     \end{block}
 \end{frame}
 
-\begin{frame}{Extension of Maximum Bipartrite matching}
+\begin{frame}{Extension of Maximum Bipartite Matching}
 For example if item 1 has 3 copies and item 5 has 4 copies:
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 
@@ -951,19 +1005,21 @@ For example if item 1 has 3 copies and item 5 has 4 copies:
     
 \end{frame}
 
-\begin{frame}{Extension of Maximum Bipartrite matching}
+\begin{frame}{Extension of Maximum Bipartite Matching}
     \begin{block}{Taking same item multiple times? }
     What if an item can be taken multiple times by a person?
 \end{block}
+    \pause
     \begin{block}{Solution}
-        The capacity of edge connected between the  person and the item would be equal to the number of times the item can be taken by that person. Then Network flow algorithm should be applied as usual.
+        The capacity of edge connected between the  person and the item would be equal to the number of times the item can be taken by that person. Then Network Flow algorithm should be applied as usual.
     \end{block}
 \end{frame}
 
-\begin{frame}{Extension of Maximum Bipartrite matching}
+\begin{frame}{Extension of Maximum Bipartite Matching}
 For example if Person1 can take Item 2 upto 5 times:
 
-        \begin{tikzpicture}
+        \centering
+		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
             \node[fill=brown,rectangle](t) at (7,-1.6) {t};
 

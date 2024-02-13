@@ -2,7 +2,7 @@
 
 %--------------beamer---------------
 \usetheme{Warsaw}
-\usecolortheme{seahorse}
+\usecolortheme{rose}
 \usefonttheme{professionalfonts}
 \usepackage{tikz}
 \useinnertheme{rectangles}
@@ -10,7 +10,12 @@
 \setbeamercolor*{mini frame}{fg=black,bg=white}
 \definecolor{blizzardblue}{rgb}{0.67, 0.9, 0.93}
 \setbeamercolor{section in head/foot}{fg=black, bg=blizzardblue}
-
+\definecolor{bittersweet}{rgb}{1.0, 0.44, 0.37}
+\definecolor{caribbeangreen}{rgb}{0.0, 0.8, 0.6}
+\definecolor{carnationpink}{rgb}{1.0, 0.65, 0.79}
+\definecolor{capri}{rgb}{0.0, 0.75, 1.0}
+\definecolor{green(pigment)}{rgb}{0.0, 0.65, 0.31}
+\definecolor{grannysmithapple}{rgb}{0.66, 0.89, 0.63}
 \defbeamertemplate{subsection in toc}{bullets}{%
   \leavevmode
   \parbox[t]{1em}{\textbullet\hfill}%
@@ -27,6 +32,9 @@
 %-------------packages--------------
 \usepackage{graphicx} 
 \usepackage{hyperref}
+\usepackage{tkz-euclide,subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 	
 \usetikzlibrary{shapes.geometric}
@@ -90,13 +98,13 @@
         \centering
 		\begin{tikzpicture} 
             % Boys
-            \node[fill=blue, circle] (b1) at (0,0) {1};
-            \node[fill=blue, circle] (b2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (b3) at (0,-1.6) {3};
+            \node[fill=capri, circle] (b1) at (0,0) {1};
+            \node[fill=capri, circle] (b2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (b3) at (0,-1.6) {3};
             
-            % Girls
-            \node[fill=green, rectangle] (g1) at (2,0) {1};
-            \node[fill=green, rectangle] (g2) at (2,-1) {2};
+            % Girl
+            \node[fill=grannysmithapple, rectangle] (g1) at (2,0) {1};
+            \node[fill=grannysmithapple, rectangle] (g2) at (2,-1) {2};
             
             % Potential Pairs
             \draw[->] (b1) -- (g1);
@@ -106,14 +114,68 @@
             
 
         \end{tikzpicture}
-        \caption{Fig: Visualization of bipartite graph}
+        % \caption{Fig: Visualization of bipartite graph}
     \end{figure}
 
 \end{frame}
+
+\begin{frame}{Odd length and Even length cycle}
+
+    \begin{figure}
+    \raggedright
+    \begin{minipage}[t]{0.45\linewidth}
+    \centering
+    
+    
+    \begin{tikzpicture}
+        
+        
+        \node[fill=bittersweet, circle] (r1) at (-0.75,0) {1} ;
+        \node[fill=bittersweet, circle] (r3) at (1.25,-1.5) {3} ;
+        \node[fill=bittersweet, circle] (r5) at (3.25,0) {5} ;
+        \node[fill=caribbeangreen, circle] (g2) at (0.25,1.5) {2} ;
+        \node[fill=capri, circle] (g4) at (2.25,1.5) {4} ;    
+        
+        \draw[-] (r1) -- (g2) ;
+        \draw[-] (g2) -- (r3);
+        \draw[-] (r3) -- (g4);
+        \draw[-] (g4) -- (g2);
+        \draw[-] (g4) -- (r5);
+        
+        
+        
+    \end{tikzpicture}
+    \pause
+    \caption*{Odd length cycle \\ Not 2 colorable  \\ \textcolor{red}{Not a bipartite graph}} \pause
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.45\linewidth}
+    \centering
+    \begin{tikzpicture}
+        \node[fill=carnationpink, circle] (p1) at (-0.75,0) {1} ;
+        \node[fill=carnationpink, circle] (p3) at (1.25,-1.5) {3} ;
+        \node[fill=carnationpink, circle] (p6) at (1.25,1.5) {6} ;
+        \node[fill=carnationpink, circle] (p5) at (3.25,0) {5} ;
+        \node[fill=capri, circle] (b2) at (0.25,0) {2} ;
+        \node[fill=capri, circle] (b4) at (2.25,0) {4} ;    
+        
+        \draw[-] (p1) -- (b2) ;
+        \draw[-] (b2) -- (p3);
+        \draw[-] (b2) -- (p6);
+        \draw[-] (b4) -- (p3);
+        \draw[-] (b4) -- (p6);
+        \draw[-] (b4) -- (p5);
+    \end{tikzpicture} \pause
+    \caption*{Even length cycle \\ 2 colorable   \\ \textcolor{green}{Bipartite graph}}
+    \end{minipage}%
+    \end{figure}
+    
+      
+    \end{frame}
     
 
 
-\section{The Problem}
+\section{Problem}
 
 \begin{frame}{The Problem}
 \begin{block}{Maximum Bipartite Matching}
@@ -129,20 +191,20 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         \centering
 		\begin{tikzpicture} 
             % Boys
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             % Girls
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[->] (p1.east) -- (f2.west);
@@ -175,23 +237,23 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         \centering
 		\begin{tikzpicture} 
             % Boys
-            \node[fill=cyan, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5}; 
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5}; 
             
             
             % Girls
-            \node[fill=green, rectangle] (f1) at (3,0) {1};
-            \node[fill=cyan, rectangle] (f2) at (3,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (3,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (3,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (3,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (3,0) {1};
+            \node[fill=carnationpink, rectangle] (f2) at (3,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (3,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (3,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (3,-3.2) {5};
         
             
             % Potential Pairs
-           \draw[cyan,thick,->] (p1.east) --  (f2.west);
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
             \draw[->] (p1) -- (f3);
             \draw[->] (p2) -- (f2);
             \draw[->] (p2) -- (f3);
@@ -218,23 +280,23 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
     %     \centering
 	% 	\begin{tikzpicture} 
     %         % Boys
-    %         \node[fill=cyan, circle] (p1) at (0,0) {1};
+    %         \node[fill=carnationpink, circle] (p1) at (0,0) {1};
     %         \node[fill=red, circle] (p2) at (0,-0.8) {2};
-    %         \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-    %          \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-    %         \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+    %         \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+    %          \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+    %         \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
     %         % Girls
-    %         \node[fill=green, rectangle] (f1) at (4,0) {1};
-    %         \node[fill=cyan, rectangle] (f2) at (4,-0.8) {2};
-    %         \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-    %         \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-    %         \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+    %         \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+    %         \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
+    %         \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+    %         \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+    %         \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
     %         % Potential Pairs
-    %        \draw[cyan,thick,->] (p1.east) --  (f2.west);
+    %        \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
     %         \draw[->] (p1) -- (f3);
     %         \draw[red,thick,->] (p2) -- (f2);
     %         \draw[->] (p2) -- (f3);
@@ -261,23 +323,23 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         \centering
 		\begin{tikzpicture} 
             % Boys
-            \node[fill=cyan, circle] (p1) at (0,0) {1};
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             % Girls
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=cyan, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
             \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
-           \draw[cyan,thick,->] (p1.east) --  (f2.west);
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
             \draw[->] (p1) -- (f3);
             \draw[->] (p2) -- (f2);
             \draw[red,thick,->] (p2) -- (f3);
@@ -304,23 +366,23 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         \centering
 		\begin{tikzpicture} 
             % Boys
-            \node[fill=cyan, circle] (p1) at (0,0) {1};
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
             \node[fill=yellow, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             % Girls
             \node[fill=yellow, rectangle] (f1) at (4,0) {1};
-            \node[fill=cyan, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
             \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
-           \draw[cyan,thick,->] (p1.east) --  (f2.west);
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
             \draw[->] (p1) -- (f3);
             \draw[->] (p2) -- (f2);
             \draw[red,thick,->] (p2) -- (f3);
@@ -348,23 +410,23 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         \centering
 		\begin{tikzpicture} 
             % Boys
-            \node[fill=cyan, circle] (p1) at (0,0) {1};
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
             \node[fill=yellow, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
             \node[fill=magenta, circle] (p5) at (0,-3.2) {5};
              
             
             
             % Girls
             \node[fill=yellow, rectangle] (f1) at (4,0) {1};
-            \node[fill=cyan, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
             \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
             \node[fill=magenta, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
-           \draw[cyan,thick,->] (p1.east) --  (f2.west);
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
             \draw[->] (p1) -- (f3);
             \draw[->] (p2) -- (f2);
             \draw[red,thick,->] (p2) -- (f3);
@@ -386,7 +448,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         We could only satisfy four guests.One guest is unhappy.
         
     \end{frame}
-\section{Reducing to Network Flow}
+\section{Reduction}
 \begin{frame}{Approach to solve }
     \begin{columns}[T]
         \begin{column}{0.4\textwidth}
@@ -453,7 +515,7 @@ matching.
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
             \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
@@ -470,20 +532,20 @@ matching.
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
@@ -533,7 +595,7 @@ matching.
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
             \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
@@ -550,20 +612,20 @@ matching.
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
@@ -593,7 +655,7 @@ matching.
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
             \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
@@ -610,20 +672,20 @@ matching.
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
@@ -653,7 +715,7 @@ matching.
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
             \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
@@ -670,20 +732,20 @@ matching.
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
@@ -713,7 +775,7 @@ matching.
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
             \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
@@ -730,20 +792,20 @@ matching.
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
@@ -773,7 +835,7 @@ matching.
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
             \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
@@ -790,20 +852,20 @@ matching.
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
@@ -848,18 +910,22 @@ matching.
 
 \section{Time Complexity}
 \begin{frame}{Running time analysis}
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=0.4]{Images/time complexity.png}
+    \end{figure}
+\end{frame}
+\begin{frame}{Running time analysis}
 \begin{enumerate}
   \item<1-> How long does it take to solve the network flow problem on the new graph?
   \pause
-  \item<2-> The running time of Edmond Karp's algorithm is $ O(m'C) $ where m' is
-  the number of edges in the new graph, and C = $\sum c_{e}$ where e = edge leaving the source and $c_{e}$ is the capacity of edge e.
+  \item<2-> The Edmond Karp's algorithm uses BFS to find the shortest augmenting path from source to sink. 
   \pause
-  \item<3-> C =  number of persons  = n
-
+  \item<3-> Running time of BFS is $O(V+E)$ where V is the number of vertices and E is the number of edges in the graph.
   \pause
-  \item<4-> $m' = 2n + m$ where m = number of edges in the original graph and n = number of people.
+  \item<4-> Each path search can take $O(VE)$ time in the worst case.
   \pause
-  \item <5-> Hence, the running time of the algorithm is $ O((2n + m)n) = O(mn + n^{2}) = O(nm) $.
+  \item <5-> Hence, the running time of the algorithm is $O((V+E)VE) = O((E)VE) = O(VE^{2})$.
 \end{enumerate}
 
 \end{frame}
@@ -882,7 +948,7 @@ For example if Person 2 is allowed to take 3 items and person 5 is allowed to ta
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
             \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
@@ -899,20 +965,20 @@ For example if Person 2 is allowed to take 3 items and person 5 is allowed to ta
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
@@ -951,7 +1017,7 @@ For example if item 1 has 3 copies and item 5 has 4 copies:
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
             \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
@@ -968,20 +1034,20 @@ For example if item 1 has 3 copies and item 5 has 4 copies:
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
@@ -1021,7 +1087,7 @@ For example if Person1 can take Item 2 upto 5 times:
         \centering
 		\begin{tikzpicture} 
             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=brown,rectangle](t) at (7,-1.6) {t};
+            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
             \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
             \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
@@ -1038,20 +1104,20 @@ For example if Person1 can take Item 2 upto 5 times:
 
 
             
-            \node[fill=blue, circle] (p1) at (0,0) {1};
-            \node[fill=blue, circle] (p2) at (0,-0.8) {2};
-            \node[fill=blue, circle] (p3) at (0,-1.6) {3};
-             \node[fill=blue, circle] (p4) at (0,-2.4) {4};
-            \node[fill=blue, circle] (p5) at (0,-3.2) {5};
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=green, rectangle] (f1) at (4,0) {1};
-            \node[fill=green, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=green, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=green, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=green, rectangle] (f5) at (4,-3.2) {5};
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
             % Potential Pairs
             \draw[->] (p1.east)--node[midway,above,font=\small]{0/\textcolor{red}{5}}  (f2.west);
@@ -1077,6 +1143,16 @@ For example if Person1 can take Item 2 upto 5 times:
 \begin{frame}{References}
 \bibliographystyle{amsalpha}
 \bibliography{ref}
+\end{frame}
+
+\definecolor{jade}{rgb}{0.0, 0.66, 0.42}
+\definecolor{mauvelous}{rgb}{0.94, 0.6, 0.67}
+
+\section{Conclusion}
+\begin{frame}{Conlusion}
+\centering
+    \LARGE {{\textbf{We hope you understood \\ \textcolor{jade}{Maximum Bipartite Matching}}}} \\
+    \Large {\textcolor{bittersweet}{\textbf{Feel free to ask any question...}}}
 \end{frame}
 
 \end{document}

@@ -97,7 +97,7 @@
     \begin{figure}
         \centering
 		\begin{tikzpicture} 
-            % Boys
+            % 
             \node[fill=capri, circle] (b1) at (0,0) {1};
             \node[fill=capri, circle] (b2) at (0,-0.8) {2};
             \node[fill=capri, circle] (b3) at (0,-1.6) {3};
@@ -190,7 +190,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         \pause
         \centering
 		\begin{tikzpicture} 
-            % Boys
+            % 
             \node[fill=capri, circle] (p1) at (0,0) {1};
             \node[fill=capri, circle] (p2) at (0,-0.8) {2};
             \node[fill=capri, circle] (p3) at (0,-1.6) {3};
@@ -199,7 +199,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
              
             
             
-            % Girls
+            % 
             \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
             \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
             \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
@@ -236,7 +236,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
 
         \centering
 		\begin{tikzpicture} 
-            % Boys
+            % 
             \node[fill=carnationpink, circle] (p1) at (0,0) {1};
             \node[fill=capri, circle] (p2) at (0,-0.8) {2};
             \node[fill=capri, circle] (p3) at (0,-1.6) {3};
@@ -244,7 +244,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
             \node[fill=capri, circle] (p5) at (0,-3.2) {5}; 
             
             
-            % Girls
+            % 
             \node[fill=grannysmithapple, rectangle] (f1) at (3,0) {1};
             \node[fill=carnationpink, rectangle] (f2) at (3,-0.8) {2};
             \node[fill=grannysmithapple, rectangle] (f3) at (3,-1.6) {3};
@@ -279,7 +279,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
 
     %     \centering
 	% 	\begin{tikzpicture} 
-    %         % Boys
+    %         % 
     %         \node[fill=carnationpink, circle] (p1) at (0,0) {1};
     %         \node[fill=red, circle] (p2) at (0,-0.8) {2};
     %         \node[fill=capri, circle] (p3) at (0,-1.6) {3};
@@ -288,7 +288,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
              
             
             
-    %         % Girls
+    %         % 
     %         \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
     %         \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
     %         \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
@@ -322,7 +322,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
 
         \centering
 		\begin{tikzpicture} 
-            % Boys
+            % 
             \node[fill=carnationpink, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
             \node[fill=capri, circle] (p3) at (0,-1.6) {3};
@@ -331,7 +331,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
              
             
             
-            % Girls
+            % 
             \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
             \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
             \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
@@ -365,7 +365,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
 
         \centering
 		\begin{tikzpicture} 
-            % Boys
+            % 
             \node[fill=carnationpink, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
             \node[fill=yellow, circle] (p3) at (0,-1.6) {3};
@@ -374,7 +374,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
              
             
             
-            % Girls
+            % 
             \node[fill=yellow, rectangle] (f1) at (4,0) {1};
             \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
             \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
@@ -409,7 +409,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
 
         \centering
 		\begin{tikzpicture} 
-            % Boys
+            % 
             \node[fill=carnationpink, circle] (p1) at (0,0) {1};
             \node[fill=red, circle] (p2) at (0,-0.8) {2};
             \node[fill=yellow, circle] (p3) at (0,-1.6) {3};
@@ -418,7 +418,7 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
              
             
             
-            % Girls
+            % 
             \node[fill=yellow, rectangle] (f1) at (4,0) {1};
             \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
             \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
@@ -484,90 +484,367 @@ matching.
         \end{column}
     \end{columns}
 \end{frame}
-\begin{frame}{Reducing to Network Flow Problem}
-\textbf{Approach: }\\
-    \begin{itemize}
-        \item Make all the edges directed if not and add 0 flow and 1 capacity for all edges.Expressed as 0/1 in Flow/Capacity format
-        \pause
-        \item Add two new nodes: 
-        \pause
-        \begin{enumerate}
-            \item Source(S)
-            \item Destination(t)
-        \end{enumerate}
-        \pause
-        \item 
-        Add nodes from source to person with flow/capacity=0/1.
-        \pause
-        \item 
-        Add nodes from food items to destination with 0 flow and 1 capacity
-        \pause
-        \item After applying network flow algorithm, flow \textgreater{}
-        0 between the pairs indicates a matching.
+% \begin{frame}{Reducing to Network Flow Problem}
+% \textbf{Approach: }\\
+
+
+% \begin{block}{}
+%     % \begin{itemize}
+%     %     \item Make all the edges directed if not and add 0 flow and 1 capacity for all edges.Expressed as 0/1 in Flow/Capacity format
+%     %     \pause
+%         % \item Add two new nodes: 
+%         % \pause
+%         % \begin{enumerate}
+%         %     \item Source(S)
+%         %     \item Destination(t)
+%         % \end{enumerate}
+%     %     \pause
+%     %     \item 
+%     %     Add nodes from source to person with flow/capacity=0/1.
+%     %     \pause
+%     %     \item 
+%     %     Add nodes from food items to destination with 0 flow and 1 capacity
+%     %     \pause
+%     %     \item After applying network flow algorithm, flow \textgreater{}     0 between the pairs indicates a matching.
         
-    \end{itemize}
+%     % \end{itemize}
     
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Reduced to Network Flow}
-
-
-        \centering
-		\begin{tikzpicture} 
-            \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-            \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
-
-            \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
-            \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
-            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
-            \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
-            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+% \begin{frame}{Reduced to Network Flow}
 
 
-            \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
-            \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
-            \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
-            \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
-            \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+%         \centering
+% 		\begin{tikzpicture} 
+%             \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+%             \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+
+%             \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+%             \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+%             \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+%             \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+%             \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+
+
+%             \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+%             \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+%             \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+%             \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+%             \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
 
 
             
-            \node[fill=capri, circle] (p1) at (0,0) {1};
-            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
-            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
-             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
-            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+%             \node[fill=capri, circle] (p1) at (0,0) {1};
+%             \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+%             \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+%              \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+%             \node[fill=capri, circle] (p5) at (0,-3.2) {5};
              
             
             
             
-            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
-            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
-            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
-            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
-            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+%             \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+%             \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+%             \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+%             \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+%             \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
             
-            % Potential Pairs
-            \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
-            \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
-            \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
-            \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
-            \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
-             \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
-              \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
-               \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
-                \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
-                  \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
-               \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
-                \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+%             % Potential Pairs
+%             \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+%             \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+%             \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+%             \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+%             \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+%              \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+%               \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+%                \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+%                 \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+%                   \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+%                \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+%                 \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
             
             
             
 
-        \end{tikzpicture}
+%         \end{tikzpicture}
     
     
-\end{frame}
+% \end{frame}
+\begin{frame}{Reduction}
+    \begin{block}{Step 1}
+            Make all the edges directed if not and add 0 flow and 1 capacity for all edges.Expressed as 0/1 in Flow/Capacity format
+        \end{block}
+        \centering
+        \begin{tikzpicture} 
+               
+    
+    
+                
+                \node[fill=capri, circle] (p1) at (0,0) {1};
+                \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+                \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+                 \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+                \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+                 
+                
+                
+                
+                \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+                \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+                \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+                \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+                \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+                
+                % Potential Pairs
+                \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+                \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+                \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+                 \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+                  \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+                   \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                      \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+                   \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+                
+                
+                
+    
+            \end{tikzpicture}
+        
+    \end{frame}
+    \begin{frame}{Reduction}
+    \begin{block}{Step 2}
+                  Add two new nodes: 
+            
+            \begin{enumerate}
+                \item Source(S)
+                \item Destination(t)
+            \end{enumerate}
+        \end{block}
+        \centering
+        \begin{tikzpicture} 
+               
+    
+                            \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+                \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+                
+                \node[fill=capri, circle] (p1) at (0,0) {1};
+                \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+                \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+                 \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+                \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+                 
+                
+                
+                
+                \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+                \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+                \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+                \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+                \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+                
+                % Potential Pairs
+                \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+                \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+                \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+                 \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+                  \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+                   \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                      \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+                   \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+                
+                
+                
+    
+            \end{tikzpicture}
+        
+    \end{frame}
+    \begin{frame}{Reduction}
+    \begin{block}{Step 3}
+                Add nodes from source to person with flow/capacity=0/1.
+        \end{block}
+        \begin{tikzpicture} 
+               
+    
+                            \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+                \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+    
+    
+                \draw[red,->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+                \draw[red,->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+                \draw[red,->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+                \draw[red,->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+                \draw[red,->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+    
+    
+                
+                
+                \node[fill=capri, circle] (p1) at (0,0) {1};
+                \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+                \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+                 \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+                \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+                 
+                
+                
+                
+                \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+                \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+                \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+                \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+                \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+                
+                % Potential Pairs
+                \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+                \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+                \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+                 \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+                  \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+                   \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                      \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+                   \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+                
+                
+                
+    
+            \end{tikzpicture}
+        
+    \end{frame}
+    \begin{frame}{Reduction}
+    \begin{block}{Step 4}
+                Add nodes from food items to destination with 0 flow and 1 capacity
+        \end{block}
+        \centering
+        \begin{tikzpicture} 
+               
+    
+                            \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+                \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+    
+    
+            
+                \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+                \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+                \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+                \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+                \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+    
+    
+                \draw[red,->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+                \draw[red,->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+                \draw[red,->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+                \draw[red,->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+                \draw[red,->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+    
+    
+                
+                
+                \node[fill=capri, circle] (p1) at (0,0) {1};
+                \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+                \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+                 \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+                \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+                 
+                
+                
+                
+                \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+                \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+                \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+                \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+                \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+                
+                % Potential Pairs
+                \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+                \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+                \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+                 \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+                  \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+                   \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                      \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+                   \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+                
+                
+                
+    
+            \end{tikzpicture}
+        
+    \end{frame}
+    \begin{frame}{Reduced to Network Flow Problem}
+    \begin{block}{Finally}
+    It is reduced to a network flow problem where we have to apply
+     network flow algorithm.Here, flow \textgreater{}   0 between the pairs indicates a matching.
+    \end{block}
+         \centering
+            \begin{tikzpicture} 
+                \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+                \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+    
+                \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+                \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+                \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+                \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+                \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+    
+    
+                \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+                \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+                \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+                \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+                \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+    
+    
+                
+                \node[fill=capri, circle] (p1) at (0,0) {1};
+                \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+                \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+                 \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+                \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+                 
+                
+                
+                
+                \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+                \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+                \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+                \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+                \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+                
+                % Potential Pairs
+                \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+                \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+                \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+                \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+                 \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+                  \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+                   \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                      \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+                   \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+                
+                
+                
+    
+            \end{tikzpicture}
+        
+    \end{frame}
 
 \begin{frame}{Edmonds-Karp Algorithm to Solve Network Flow Problem}
         \begin{itemize}

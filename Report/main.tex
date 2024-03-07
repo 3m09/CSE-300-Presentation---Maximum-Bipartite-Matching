@@ -14,6 +14,7 @@
 \usepackage{hyperref}
 \usepackage{tkz-euclide,subfigure}
 \usepackage{subcaption}
+\usepackage{nameref}
 \captionsetup{font=Large}
 	
 \usetikzlibrary{shapes.geometric}
@@ -49,6 +50,7 @@ Group - 09\\
 9th March, 2024
 \end{center}
 }
+\author{}
 \date{}
 
 \begin{document}
@@ -107,7 +109,7 @@ A bipartite graph is one whose vertices can be split into two independent groups
 \begin{figure}[!h]
     \centering
     \begin{tabular}{c c}
-        \begin{tikzpicture}
+        \begin{tikzpicture}[scale=1.5]
         
         
             \node[fill=bittersweet, circle] (r1) at (-0.75,0) {1} ;
@@ -125,7 +127,7 @@ A bipartite graph is one whose vertices can be split into two independent groups
         
         
         \end{tikzpicture} & 
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale = 1.5]
         \node[fill=carnationpink, circle] (p1) at (-0.75,0) {1} ;
         \node[fill=carnationpink, circle] (p3) at (1.25,-1.5) {3} ;
         \node[fill=carnationpink, circle] (p6) at (1.25,1.5) {6} ;
@@ -142,7 +144,7 @@ A bipartite graph is one whose vertices can be split into two independent groups
     \end{tikzpicture} \\
     Odd length cycle & Even length cycle \\
     Not 2 colorable & 2 colorable \\ 
-    \textcolor{red}{Not a bipartite graph} &  \textcolor{green}{Bipartite graph}
+    \textcolor{red}{Not a bipartite graph} &  \textcolor{caribbeangreen}{Bipartite graph}
     \end{tabular}
     \caption{Comparison between Bipartite and Non-bipartite graph}
 \end{figure}
@@ -151,6 +153,243 @@ A bipartite graph is one whose vertices can be split into two independent groups
 Given a bipartite graph, a matching is a subset of the edges for which \textbf{every vertex belongs to exactly one of the edges}. \par
 
 And, a maximum matching is a matching of \textbf{maximum number of edges}. In a maximum matching, if any edge is added to it, it is no longer a matching.
+
+\section{The Problem}
+\textit{
+Given a bipartite graph $G = (A \cup B, E)$, find an \{ $S \subseteq A \times B$ : $S$ is a matching and is as large as possible.} \} \cite{kleinberg2006algorithm}
+
+\newpage
+
+\section{Scenario}
+In a picnic,there are 5 people and 5 food items.Some people express interest in some of the items.How can we satisfy \textbf{maximum number of people} while wasting \textbf{minimum number of items}?
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{ccc}
+      \begin{tikzpicture} 
+            % 
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+             
+            
+            
+            % 
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+            
+            % Potential Pairs
+            \draw[->] (p1.east) -- (f2.west);
+            \draw[->] (p1) -- (f3);
+            \draw[->] (p2) -- (f2);
+            \draw[->] (p2) -- (f3);
+            \draw[->] (p2) -- (f4);
+             \draw[->] (p3.east) -- (f1.west);
+              \draw[->] (p3.east) -- (f3.west);
+               \draw[->] (p3.east) -- (f5.west);
+                \draw[->] (p4.east) -- (f3.west);
+                  \draw[->] (p5.east) -- (f3.west);
+               \draw[->] (p5.east) -- (f5.west);
+                \draw[->] (p5.east) -- (f4.west);
+            
+            
+            
+
+        \end{tikzpicture} & 
+        \begin{tikzpicture} 
+            % 
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5}; 
+            
+            
+            % 
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+        
+            
+            % Potential Pairs
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
+            \draw[->] (p1) -- (f3);
+            \draw[->] (p2) -- (f2);
+            \draw[->] (p2) -- (f3);
+            \draw[->] (p2) -- (f4);
+             \draw[->] (p3.east) -- (f1.west);
+              \draw[->] (p3.east) -- (f3.west);
+               \draw[->] (p3.east) -- (f5.west);
+                \draw[->] (p4.east) -- (f3.west);
+                  \draw[->] (p5.east) -- (f3.west);
+               \draw[->] (p5.east) -- (f5.west);
+                \draw[->] (p5.east) -- (f4.west);
+            
+            
+            
+
+        \end{tikzpicture} & 
+        \begin{tikzpicture} 
+            % 
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
+            \node[fill=red, circle] (p2) at (0,-0.8) {2};
+            \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+             
+            
+            
+            % 
+            \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+            
+            % Potential Pairs
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
+            \draw[->] (p1) -- (f3);
+            \draw[->] (p2) -- (f2);
+            \draw[red,thick,->] (p2) -- (f3);
+            \draw[->] (p2) -- (f4);
+             \draw[->] (p3.east) -- (f1.west);
+              \draw[->] (p3.east) -- (f3.west);
+               \draw[->] (p3.east) -- (f5.west);
+                \draw[->] (p4.east) -- (f3.west);
+                  \draw[->] (p5.east) -- (f3.west);
+               \draw[->] (p5.east) -- (f5.west);
+                \draw[->] (p5.east) -- (f4.west);
+            
+            
+            
+
+        \end{tikzpicture} \\
+        (a) & (b) & (c) \\ \hline
+        & & \\
+        \begin{tikzpicture} 
+            % 
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
+            \node[fill=red, circle] (p2) at (0,-0.8) {2};
+            \node[fill=yellow, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+             
+            
+            
+            % 
+            \node[fill=yellow, rectangle] (f1) at (4,0) {1};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+            
+            % Potential Pairs
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
+            \draw[->] (p1) -- (f3);
+            \draw[->] (p2) -- (f2);
+            \draw[red,thick,->] (p2) -- (f3);
+            \draw[->] (p2) -- (f4);
+             \draw[yellow,thick,->] (p3.east) -- (f1.west);
+              \draw[->] (p3.east) -- (f3.west);
+               \draw[->] (p3.east) -- (f5.west);
+                \draw[->] (p4.east) -- (f3.west);
+                  \draw[->] (p5.east) -- (f3.west);
+               \draw[->] (p5.east) -- (f5.west);
+                \draw[->] (p5.east) -- (f4.west);
+            
+            
+            
+
+        \end{tikzpicture} &
+        \begin{tikzpicture} 
+            % 
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
+            \node[fill=red, circle] (p2) at (0,-0.8) {2};
+            \node[fill=yellow, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+             
+            
+            
+            % 
+            \node[fill=yellow, rectangle] (f1) at (4,0) {1};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+            
+            % Potential Pairs
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
+            \draw[->] (p1) -- (f3);
+            \draw[->] (p2) -- (f2);
+            \draw[red,thick,->] (p2) -- (f3);
+            \draw[->] (p2) -- (f4);
+             \draw[yellow,thick,->] (p3.east) -- (f1.west);
+              \draw[->] (p3.east) -- (f3.west);
+               \draw[->] (p3.east) -- (f5.west);
+                \draw[->] (p4.east) -- (f3.west);
+                  \draw[->] (p5.east) -- (f3.west);
+               \draw[->] (p5.east) -- (f5.west);
+                \draw[->] (p5.east) -- (f4.west);
+            
+            
+            
+
+        \end{tikzpicture} &
+        \begin{tikzpicture} 
+            % 
+            \node[fill=carnationpink, circle] (p1) at (0,0) {1};
+            \node[fill=red, circle] (p2) at (0,-0.8) {2};
+            \node[fill=yellow, circle] (p3) at (0,-1.6) {3};
+             \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+            \node[fill=magenta, circle] (p5) at (0,-3.2) {5};
+             
+            
+            
+            % 
+            \node[fill=yellow, rectangle] (f1) at (4,0) {1};
+            \node[fill=carnationpink, rectangle] (f2) at (4,-0.8) {2};
+            \node[fill=red, rectangle] (f3) at (4,-1.6) {3};
+            \node[fill=magenta, rectangle] (f4) at (4,-2.4) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+            
+            % Potential Pairs
+           \draw[carnationpink,thick,->] (p1.east) --  (f2.west);
+            \draw[->] (p1) -- (f3);
+            \draw[->] (p2) -- (f2);
+            \draw[red,thick,->] (p2) -- (f3);
+            \draw[->] (p2) -- (f4);
+             \draw[yellow,thick,->] (p3.east) -- (f1.west);
+              \draw[->] (p3.east) -- (f3.west);
+               \draw[->] (p3.east) -- (f5.west);
+                \draw[->] (p4.east) -- (f3.west);
+                  \draw[->] (p5.east) -- (f3.west);
+               \draw[->] (p5.east) -- (f5.west);
+                \draw[magenta,thick,->] (p5.east) -- (f4.west);
+            
+            
+            
+
+        \end{tikzpicture} 
+        \\
+        (d) & (e) & (f) \\ \hline
+    \end{tabular}
+    \caption*{
+    }
+    \label{tab:greedy_approch}
+\end{table}
+
+
+
+
+
 
 \section{References}
 \bibliographystyle{plain}

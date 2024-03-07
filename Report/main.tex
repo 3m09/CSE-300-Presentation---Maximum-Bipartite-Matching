@@ -1,4 +1,4 @@
-\documentclass[18pt]{article}
+\documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, total={6.5in, 9.5in}]{geometry}
 \usepackage{graphicx} % Required for inserting images
@@ -162,6 +162,8 @@ Given a bipartite graph $G = (A \cup B, E)$, find an \{ $S \subseteq A \times B$
 
 \section{Scenario}
 In a picnic,there are 5 people and 5 food items.Some people express interest in some of the items.How can we satisfy \textbf{maximum number of people} while wasting \textbf{minimum number of items}?
+\vspace{5mm}
+\\ \textbf{\underline{Greedy Approach : }} Greedy approach seeks to find the \textbf{first available item} among the items in which the person is interested in and assigns that item to the person. Here's a simulation for the above scenario :- 
 
 \begin{table}[!h]
     \centering
@@ -382,14 +384,18 @@ In a picnic,there are 5 people and 5 food items.Some people express interest in 
         (d) & (e) & (f) \\ \hline
     \end{tabular}
     \caption*{
-    }
+    a) We define the problem using a graph, where the \textcolor{blue}{blue} vertices represents a person to whom no item has been assigned and the \textcolor{caribbeangreen}{green} vertices represents the items available. Edges from a person to an item depicts their interest in that item.
+    \\ b) Person 1 initiates the process by selecting the first available item (item 2).
+	\\ c) Person 2's only viable option is item 3, as item 2 has already been chosen.
+	\\ d) Person 3 selects item 3.
+	\\ e) Person 4 cannot be assigned an item, as all options previously chosen by them have been allocated.
+	\\ f) Person 5 discovers that item 4 is available for selection.
+	}
     \label{tab:greedy_approch}
 \end{table}
+\textit{Bipartite matching : }  \{(1, 2), (2, 3), (3, 1), (5, 4)\}\\
 
-
-
-
-
+Although greedy provides us with a valid matching , it is not maximal.
 
 \section{References}
 \bibliographystyle{plain}

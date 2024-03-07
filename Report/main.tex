@@ -398,6 +398,181 @@ Greedy approach seeks to find the \textbf{first available item} among the items 
 
 Although greedy provides us with a valid matching , it is not maximal.
 
+\section{Time Complexity}
+Edmond Karp’s algorithm uses BFS as we need the shortest augmenting path from source to sink. Running time of BFS is $O(V + E)$ . Path search can take upto $O(V E)$ time. Some calculation and reduction leads us to a time complexity of $O((V+E)VE) = O((E)VE) = O(VE^{2})$.
+
+\section{Extension}
+Now some special cases will be discussed where the algorithm needs to be extended to solve the problem.
+
+\subsection{Allowing multiple items for a person}
+In this case we will make the capacity of the edges  from source to person, equal to the number of items they can take. Then we can use the same algorithm to find the maximum matching. \\
+For example if Person 2 is allowed to take 3 items and person 5 is allowed to take 2 items:
+
+\begin{figure}[!h]
+    \centering
+    \begin{tikzpicture} 
+        \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+        \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+
+        \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
+
+
+        \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+        \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+        \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+
+
+        
+        \node[fill=capri, circle] (p1) at (0,0) {1};
+        \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+        \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+        \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+        \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+            
+        
+        
+        \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+        \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+        \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+        \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+        \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+        
+        % Potential Pairs
+        \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+        \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+        \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+            \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+            \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+            \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+            \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+            \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+            \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+            \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+    \end{tikzpicture}
+\end{figure}
+\pagebreak
+
+\subsection{Multiple copies of item available}
+This case almost similar to the previous one. We will make the capacity of the edges from item to sink, equal to the number of copies of the item available. Then we can use the regular network flow algorithm to find the maximum matching. \\
+For example if item 1 has 3 copies and item 5 has 4 copies:
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture} 
+    \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+    \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+
+    \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+    \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
+    \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+    \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+    \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
+
+
+    \draw[->](f1.east)--node[midway,above,font=\small]{0/\textcolor{red}{3}} (t.west);
+    \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+    \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+    \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+    \draw[->](f5.east)--node[left,right,font=\small]{0/\textcolor{red}{4}} (t.west);
+
+
+    
+    \node[fill=capri, circle] (p1) at (0,0) {1};
+    \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+    \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+     \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+    \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+     
+     
+    \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+    \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+    \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+    \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+    \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+    
+    % Potential Pairs
+    \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+    \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+    \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+     \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+      \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+       \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+        \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+          \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+       \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+        \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+    
+\end{tikzpicture}
+\end{figure}
+
+\subsection{Taking same item multiple times}
+We have to make the edges from person to item have capacity, the number of times that particular person can take that particular item. Then we can use our network flow algorithm to solve the problem. \\
+For example if Person1 can take Item 2 upto 5 times:
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture} 
+    \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
+    \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
+
+    \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+    \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
+    \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+    \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+    \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
+
+
+    \draw[->](f1.east)--node[midway,above,font=\small]{0/\textcolor{red}{3}} (t.west);
+    \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+    \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+    \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+    \draw[->](f5.east)--node[left,right,font=\small]{0/\textcolor{red}{4}} (t.west);
+
+
+    
+    \node[fill=capri, circle] (p1) at (0,0) {1};
+    \node[fill=capri, circle] (p2) at (0,-0.8) {2};
+    \node[fill=capri, circle] (p3) at (0,-1.6) {3};
+     \node[fill=capri, circle] (p4) at (0,-2.4) {4};
+    \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+     
+    
+    
+    
+    \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
+    \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
+    \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
+    \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
+    \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+    
+    % Potential Pairs
+    \draw[->] (p1.east)--node[midway,above,font=\small]{0/\textcolor{red}{5}}  (f2.west);
+    \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+    \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+     \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+      \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+       \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+        \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+          \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+       \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+        \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+
+\end{tikzpicture}
+\end{figure}
+        
+
 \section{References}
 \bibliographystyle{plain}
 \bibliography{ref}

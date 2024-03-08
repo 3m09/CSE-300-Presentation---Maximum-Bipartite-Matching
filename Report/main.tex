@@ -16,14 +16,15 @@
 \usepackage{subcaption}
 \usepackage{nameref}
 \captionsetup{font=Large}
-	
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{shapes,arrows,positioning,patterns,matrix,circuits.logic.IEC, calc}
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 \usepgfplotslibrary{fillbetween,statistics}
 
-\graphicspath{ {./Util/} }
+\graphicspath{ {./Img/} }
 
 \definecolor{blizzardblue}{rgb}{0.67, 0.9, 0.93}
 \definecolor{bittersweet}{rgb}{1.0, 0.44, 0.37}
@@ -37,11 +38,15 @@
 \setlength{\tabcolsep}{12pt}
 \renewcommand{\arraystretch}{1.5}
 
-\pretitle{\linespread{1.5}\huge}
-\posttitle{\par\vspace{0.5cm}}
+\pretitle{\linespread{1.5}\Large}
+\posttitle{\vspace{10mm}}
 
 \title{
 \begin{center}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[scale = 0.75]{Img/buetlogo.png}
+\end{figure}
 CSE 300\\
 Technical Writing and Presentation Sessional\\
 Report: Maximum Bipartite Matching\\
@@ -54,7 +59,9 @@ Group - 09\\
 \date{}
 
 \begin{document}
+
 \maketitle
+
 \raggedright
 \Large{Members of the Group:\par}
 \Large{
@@ -75,7 +82,7 @@ The concept of maximum bipartite matching, a fundamental problem in graph theory
 \Large
 A bipartite graph is one whose vertices can be split into two independent groups U,V such that \textbf{every edge connects vertices of different groups.} \\
 \vspace{10mm}
-\begin{figure}[!h]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale=4] 
         % 
@@ -106,7 +113,7 @@ A bipartite graph is one whose vertices can be split into two independent groups
 \end{itemize}
 
 
-\begin{figure}[!h]
+\begin{figure}[H]
     \centering
     \begin{tabular}{c c}
         \begin{tikzpicture}[scale=1.5]
@@ -388,7 +395,7 @@ Greedy approach seeks to find the \textbf{first available item} among the items 
     a) We define the problem using a graph, where any \textcolor{blue}{blue} vertex represents a person to whom no item has been assigned and any \textcolor{caribbeangreen}{green} vertex represents an available item. Edges from a person to an item depicts their interest in that item.
     \\ b) Person 1 initiates the process by selecting the first available item (item 2).
 	\\ c) Person 2's only viable option is item 3, as item 2 has already been chosen.
-	\\ d) Person 3 selects item 3.
+	\\ d) Person 3 selects item 1.
 	\\ e) Person 4 cannot be assigned an item, as all options previously chosen by them have been allocated.
 	\\ f) Person 5 discovers that item 4 is available for selection.
 	}
@@ -398,105 +405,73 @@ Greedy approach seeks to find the \textbf{first available item} among the items 
 
 Although greedy provides us with a valid matching , it is not maximal.
 
-\section{Time Complexity}
-Edmond Karp’s algorithm uses BFS as we need the shortest augmenting path from source to sink. Running time of BFS is $O(V + E)$ . Path search can take upto $O(V E)$ time. Some calculation and reduction leads us to a time complexity of $O((V+E)VE) = O((E)VE) = O(VE^{2})$.
-
-\section{Extension}
-Now some special cases will be discussed where the algorithm needs to be extended to solve the problem.
-
-\subsection{Allowing multiple items for a person}
-In this case we will make the capacity of the edges  from source to person, equal to the number of items they can take. Then we can use the same algorithm to find the maximum matching. \\
-For example if Person 2 is allowed to take 3 items and person 5 is allowed to take 2 items:
-
-\begin{figure}[!h]
-    \centering
-    \begin{tikzpicture} 
-        \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-        \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
-
-        \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
-        \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
-        \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
-        \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
-        \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
 
 
-        \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
-        \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
-        \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
-        \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
-        \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
 
 
-        
-        \node[fill=capri, circle] (p1) at (0,0) {1};
-        \node[fill=capri, circle] (p2) at (0,-0.8) {2};
-        \node[fill=capri, circle] (p3) at (0,-1.6) {3};
-        \node[fill=capri, circle] (p4) at (0,-2.4) {4};
-        \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+
+
+
+
+
+
+
+\section{Reduction to a Known Problem}
+
+
+            % Text column
+            \begin{itemize}
+                \item Given an instance of bipartite matching
+                
+                \item Reduce it to Max Flow Problem.
             
-        
-        
-        \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
-        \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
-        \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
-        \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
-        \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
-        
-        % Potential Pairs
-        \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
-        \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
-        \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
-        \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
-        \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
-            \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
-            \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
-            \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
-            \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
-            \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
-            \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
-            \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
-    \end{tikzpicture}
-\end{figure}
-\pagebreak
-
-\subsection{Multiple copies of item available}
-This case almost similar to the previous one. We will make the capacity of the edges from item to sink, equal to the number of copies of the item available. Then we can use the regular network flow algorithm to find the maximum matching. \\
-For example if item 1 has 3 copies and item 5 has 4 copies:
-
-\begin{figure}[!h]
-\centering
-\begin{tikzpicture} 
-    \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-    \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
-
-    \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
-    \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
-    \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
-    \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
-    \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
-
-
-    \draw[->](f1.east)--node[midway,above,font=\small]{0/\textcolor{red}{3}} (t.west);
-    \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
-    \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
-    \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
-    \draw[->](f5.east)--node[left,right,font=\small]{0/\textcolor{red}{4}} (t.west);
-
-
+                \item 
+Where the solution to the
+network 
+flow problem can
+easily be used to find the
+solution to the bipartite
+matching.
+            \end{itemize}
     
+        
+ 
+            % Flowchart column
+            \begin{figure}[H]
+                \centering
+		\begin{tikzpicture} [shorten >=1pt,node distance=2cm,auto]
+                    % Nodes
+                    \node[draw,rectangle] (A1) {Intance of Max Bipartite Matching};
+                    \node[draw,rectangle] (B5) [below of=A1] {instance of network flow};
+                
+                    % Arrow
+                    \draw[black,thick,->] (A1.south) -- node[midway, right] {Reducing} (B5.north);
+                \end{tikzpicture}
+                \caption{Approach to solve}
+            \end{figure}
+
+
+
+\section{Steps of Reduction}
+
+\subsection{ Make all the edges directed}
+
+Make all the edges directed if not and add 0 flow and 1 capacity for all edges, expressed as 0/1 in Flow/Capacity format.
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
     \node[fill=capri, circle] (p1) at (0,0) {1};
-    \node[fill=capri, circle] (p2) at (0,-0.8) {2};
-    \node[fill=capri, circle] (p3) at (0,-1.6) {3};
-     \node[fill=capri, circle] (p4) at (0,-2.4) {4};
-    \node[fill=capri, circle] (p5) at (0,-3.2) {5};
+    \node[fill=capri, circle] (p2) at (0,-1) {2};
+    \node[fill=capri, circle] (p3) at (0,-2) {3};
+    \node[fill=capri, circle] (p4) at (0,-3) {4};
+    \node[fill=capri, circle] (p5) at (0,-4) {5};
      
-     
-    \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
-    \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
-    \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
-    \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
-    \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
+    \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+    \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+    \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+    \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+    \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
     
     % Potential Pairs
     \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
@@ -504,73 +479,792 @@ For example if item 1 has 3 copies and item 5 has 4 copies:
     \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
     \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
     \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
-     \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
-      \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
-       \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
-        \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
-          \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
-       \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
-        \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
-    
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+    \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+    \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
 \end{tikzpicture}
+\caption{All edges are directed}
+\end{center}
 \end{figure}
+
+\subsection{ Add two new nodes}
+
+Add two new nodes: Source (S) and Destination (t).These nodes are needed to obtain the common source node and the common destination/sink node which is needed for suitability to apply network flow algorithms.
+
+
+\begin{figure}[H]
+
+\begin{center}
+\begin{tikzpicture}
+    \node[fill=yellow, rectangle](s) at (-4,-2) {S};
+    \node[fill=bittersweet, rectangle](t) at (9,-2) {t};
+    
+    \node[fill=capri, circle] (p1) at (0,0) {1};
+    \node[fill=capri, circle] (p2) at (0,-1) {2};
+    \node[fill=capri, circle] (p3) at (0,-2) {3};
+    \node[fill=capri, circle] (p4) at (0,-3) {4};
+    \node[fill=capri, circle] (p5) at (0,-4) {5};
+     
+    \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+    \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+    \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+    \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+    \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+    
+    % Potential Pairs
+    \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+    \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+    \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+    \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+    \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+\end{tikzpicture}
+\caption{ Two nodes (s and t) added}
+\end{center}
+\end{figure}
+
+\subsection{ Add edges from source to person}
+
+Add edges from the source to each person with flow=0 and capacity=1.Here capacity =1 means every person is allowed to take only one more item.Flow=0 means currently nobody has taken any item.
+
+\begin{figure}[H] \begin{center}
+\begin{tikzpicture}
+    \node[fill=yellow, rectangle](s) at (-4,-2) {S};
+    \node[fill=bittersweet, rectangle](t) at (9,-2) {t};
+    
+    \draw[red,->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+    \draw[red,->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+    \draw[red,->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+    \draw[red,->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+    \draw[red,->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+    
+    % Remaining nodes and edges
+    \node[fill=capri, circle] (p1) at (0,0) {1};
+    \node[fill=capri, circle] (p2) at (0,-1) {2};
+    \node[fill=capri, circle] (p3) at (0,-2) {3};
+    \node[fill=capri, circle] (p4) at (0,-3) {4};
+    \node[fill=capri, circle] (p5) at (0,-4) {5};
+     
+    \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+    \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+    \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+    \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+    \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+    
+    % Potential Pairs
+    \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+    \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+    \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+    \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+    \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+\end{tikzpicture}
+\caption{edges added from source to person}  \end{center} \end{figure}
+
+\newpage
+
+\subsection{ Add edges from food items to destination}
+
+Add edges from food items to the destination with 0 flow and 1 capacity.Capacity is the number of copies remaining for a certain item and the flow denotes how many copies have already been taken.
+
+\begin{figure}[H] \begin{center}
+\begin{tikzpicture}
+    \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+    \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+
+    % Source to person
+    \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+    \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+    \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+    \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+    \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+
+    % Food items to destination
+    \draw[red,->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+    \draw[red,->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+    \draw[red,->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+    \draw[red,->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+    \draw[red,->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+
+    % Remaining nodes and edges
+    \node[fill=capri, circle] (p1) at (0,0) {1};
+    \node[fill=capri, circle] (p2) at (0,-1) {2};
+    \node[fill=capri, circle] (p3) at (0,-2) {3};
+    \node[fill=capri, circle] (p4) at (0,-3) {4};
+    \node[fill=capri, circle] (p5) at (0,-4) {5};
+     
+    \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+    \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+    \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+    \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+    \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+    
+    % Potential Pairs
+    \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+    \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+    \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+    \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+    \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+    \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+    \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+    \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+    \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+\end{tikzpicture}
+\caption{edges added from food items to sink}  \end{center} \end{figure}
+
+\subsection{Reduced to Network Flow Problem}
+
+Finally, the problem is reduced to a network flow problem where we have to apply a network flow algorithm. Here, flow \textgreater{} 0 between the pairs indicates a matching.
+
+
+\begin{figure}[H] \begin{center}
+    \begin{tikzpicture}
+        \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+        \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+    
+        % Source to person
+        \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+    
+        % Food items to destination
+        \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+        \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+        \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+    
+        % Remaining nodes and edges
+        \node[fill=capri, circle] (p1) at (0,0) {1};
+        \node[fill=capri, circle] (p2) at (0,-1) {2};
+        \node[fill=capri, circle] (p3) at (0,-2) {3};
+        \node[fill=capri, circle] (p4) at (0,-3) {4};
+        \node[fill=capri, circle] (p5) at (0,-4) {5};
+         
+        \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+        \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+        \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+        \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+        \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+        
+        % Potential Pairs
+        \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+        \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+        \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+        \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+        \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+        \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+        \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+    \end{tikzpicture}
+    \caption{Ready to apply Max Flow Algorithm}  \end{center} \end{figure}
+
+
+\pagebreak
+
+\section{Popular Algorithms for Maximum Flow Problem}
+
+\begin{enumerate}
+    \item \textbf{Ford-Fulkerson Algorithm:}
+    \begin{itemize}
+        \item Uses the concept of augmenting paths to find the maximum flow.
+        \item Time complexity: $O(E \cdot \text{max\_flow})$, where $E$ is the number of edges and $\text{max\_flow}$ is the maximum flow.
+        \item Space complexity: $O(V)$, where $V$ is the number of vertices.
+    \end{itemize}
+
+    \item \textbf{Edmonds-Karp Algorithm (a variation of Ford-Fulkerson):}
+    \begin{itemize}
+        \item Utilizes BFS (Breadth-First Search) to find augmenting paths.
+        \item Time complexity: $O(VE^2)$, where $V$ is the number of vertices and $E$ is the number of edges.
+        \item Space complexity: $O(V^2)$, where $V$ is the number of vertices.
+    \end{itemize}
+
+    \item \textbf{Dinic's Algorithm:}
+    \begin{itemize}
+        \item Builds a layered network and performs multiple blocking flows.
+        \item Time complexity: $O(V^2 \cdot E)$, where $V$ is the number of vertices and $E$ is the number of edges.
+        \item Space complexity: $O(V^2)$, where $V$ is the number of vertices.
+    \end{itemize}
+
+    \item \textbf{Push-Relabel Algorithm:}
+    \begin{itemize}
+        \item Maintains a preflow that satisfies certain conditions and iteratively pushes flow along edges.
+        \item Time complexity: $O(V^3)$, where $V$ is the number of vertices.
+        \item Space complexity: $O(V^2)$, where $V$ is the number of vertices.
+    \end{itemize}
+
+    \item \textbf{Goldberg-Tarjan Algorithm:}
+    \begin{itemize}
+        \item A combination of push-relabel and relabel-to-front techniques.
+        \item Time complexity: $O(V^2 \cdot E)$, where $V$ is the number of vertices and $E$ is the number of edges.
+        \item Space complexity: $O(V^2)$, where $V$ is the number of vertices.
+    \end{itemize}
+\end{enumerate}
+
+Among all of them,Edmonds-Karp is easier to understand and very widely used .Here,We are using Edmonds-Karp algorithm to simulate max flow problem's solution
+\pagebreak
+\section{Edmonds-Karp Algorithm to Solve Network Flow Problem}
+
+The Edmonds-Karp algorithm is a popular method for finding the maximum flow in a network. It is based on the Ford-Fulkerson method and uses breadth-first search (BFS) to find augmenting paths efficiently.
+
+\begin{algorithm}
+\caption{Edmonds-Karp Algorithm}
+\begin{algorithmic}[1]
+\REQUIRE Network graph $G$, source node $s$, sink node $t$
+\ENSURE Maximum flow $f$
+\STATE Initialize flow $f(u,v) = 0$ for all edges $(u,v)$ in the graph.
+\WHILE{augmenting paths exist}
+    \STATE Use BFS to find the shortest augmenting path from $s$ to $t$.
+    \IF{no augmenting path is found}
+        \STATE Terminate the algorithm.
+    \ENDIF
+    \STATE Let $P$ be the augmenting path found by BFS.
+    \STATE Let $cf(P)$ be the minimum residual capacity along path $P$.
+    \FOR{each edge $(u,v)$ in $P$}
+        \STATE Update flow $f(u,v) = f(u,v) + cf(P)$.
+        \STATE Update flow $f(v,u) = f(v,u) - cf(P)$ for the reverse edge.
+    \ENDFOR
+\ENDWHILE
+\STATE The value of the maximum flow is the sum of flow values leaving the source.
+\end{algorithmic}
+\end{algorithm}
+
+This algorithm efficiently finds the maximum flow in a network by iteratively augmenting flow along the shortest augmenting paths. It terminates when no more augmenting paths can be found, guaranteeing the maximum flow is achieved.
+
+
+
+
+\section{Solution}
+As the algorithm uses BFS,the augmenting paths are not necessarily unique.Storing edges in different configurations may result in different valid solutions.Here we are trying to look for one of the valid solutions: 
+
+\subsection*{Augmenting path 1}
+        \begin{figure}[H] \begin{center}
+		\begin{tikzpicture} 
+            \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+            \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+
+            \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
+            \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p2.west);
+            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+            \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+
+
+            \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+            \draw[brown,->](f2.east)--node[midway,left,font=\small]{1/1} (t.west);
+            \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+            \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+            \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+
+
+            
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-1) {2};
+            \node[fill=capri, circle] (p3) at (0,-2) {3};
+             \node[fill=capri, circle] (p4) at (0,-3) {4};
+            \node[fill=capri, circle] (p5) at (0,-4) {5};
+             
+            
+            
+            
+            \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+            
+            % Potential Pairs
+            \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
+            \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+            \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+            \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+            \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+             \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+              \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+               \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                  \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+               \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+            
+            
+            
+
+        \end{tikzpicture}   \caption{Found augmenting path -1}  \end{center} \end{figure}
+    
+  Here,the flow has become 1 along the path.The bottleneck capacity=1 along the path.As a result,remaining capacity has become $1-1=0$ along the path.Therefore,the edges along the path will not be selected by BFS applied later unless any backward flow is generated.
+
+
+\subsection*{Augmenting path 2}
+        \begin{figure}[H] \begin{center}
+		\begin{tikzpicture} 
+            \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+            \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+
+            \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
+            \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
+            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+            \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+
+
+            \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+            \draw[brown,->](f2.east)--node[midway,left,font=\small]{1/1} (t.west);
+            \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+            \draw[brown,->](f4.east)--node[left,right,font=\small]{1/1} (t.west);
+            \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+
+
+            
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-1) {2};
+            \node[fill=capri, circle] (p3) at (0,-2) {3};
+             \node[fill=capri, circle] (p4) at (0,-3) {4};
+            \node[fill=capri, circle] (p5) at (0,-4) {5};
+             
+            
+            
+            
+            \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+            
+            % Potential Pairs
+            \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
+            \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+            \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+            \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+            \draw[brown,->] (p2) -- node[near end,right,font=\small]{1/1} (f4);
+             \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+              \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+               \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                  \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+               \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+            
+            
+            
+
+        \end{tikzpicture}   \caption{Found augmenting path -2}  \end{center} \end{figure}
+    
+    Similarly,we have found another augmenting path.Here,the bottleneck capacity is also 1.So the edges along the path are blocked for further usage.
+
+        \subsection*{Augmenting path 3}
+
+        \begin{figure}[H] \begin{center}
+		\begin{tikzpicture} 
+            \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+            \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+
+            \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
+            \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
+            \draw[brown,->](s.east)--node[midway,left,font=\small]{1/1} (p3.west);
+            \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+
+
+            \draw[brown,->](f1.east)--node[midway,above,font=\small]{1/1} (t.west);
+            \draw[brown,->](f2.east)--node[midway,left,font=\small]{1/1} (t.west);
+            \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+            \draw[brown,->](f4.east)--node[left,right,font=\small]{1/1} (t.west);
+            \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+
+
+            
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-1) {2};
+            \node[fill=capri, circle] (p3) at (0,-2) {3};
+             \node[fill=capri, circle] (p4) at (0,-3) {4};
+            \node[fill=capri, circle] (p5) at (0,-4) {5};
+             
+            
+            
+            
+            \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+            
+            % Potential Pairs
+            \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
+            \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+            \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+            \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+            \draw[brown,->] (p2) -- node[near end,right,font=\small]{1/1} (f4);
+             \draw[brown,->] (p3.east) -- node[near end,right,font=\small]{1/1}  (f1.west);
+              \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+               \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+                  \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+               \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+            
+            
+            
+
+        \end{tikzpicture}   \caption{Found augmenting path -3}  \end{center} \end{figure}
+    
+    
+This is continuation of previous steps and this step is also handled accordingly
+
+
+
+        \subsection*{Augmenting path 4}
+        \begin{figure}[H] \begin{center}
+		\begin{tikzpicture} 
+            \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+            \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+
+            \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
+            \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
+            \draw[brown,->](s.east)--node[midway,left,font=\small]{1/1} (p3.west);
+            \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p4.west);
+            \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p5.west);
+
+
+            \draw[brown,->](f1.east)--node[midway,above,font=\small]{1/1} (t.west);
+            \draw[brown,->](f2.east)--node[midway,left,font=\small]{1/1} (t.west);
+            \draw[brown,->](f3.east)--node[left,right,font=\small]{1/1} (t.west);
+            \draw[brown,->](f4.east)--node[left,right,font=\small]{1/1} (t.west);
+            \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+
+
+            
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-1) {2};
+            \node[fill=capri, circle] (p3) at (0,-2) {3};
+             \node[fill=capri, circle] (p4) at (0,-3) {4};
+            \node[fill=capri, circle] (p5) at (0,-4) {5};
+             
+            
+            
+            
+            \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+            
+            % Potential Pairs
+            \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
+            \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+            \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+            \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+            \draw[brown,->] (p2) -- node[near end,right,font=\small]{1/1} (f4);
+             \draw[brown,->] (p3.east) -- node[near end,right,font=\small]{1/1}  (f1.west);
+              \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+               \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                \draw[brown,->] (p4.east) -- node[near start,above,font=\small]{1/1}  (f3.west);
+                  \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+               \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+                \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+            
+            
+            
+
+        \end{tikzpicture}   \caption{Found augmenting path -4}  \end{center} \end{figure}
+    
+    This process continues to find augmenting path as long as there is a path with remaining capacity greater than 0.
+
+        \subsection*{Augmenting path 5}
+
+        \begin{figure}[H] \begin{center}
+		\begin{tikzpicture} 
+            \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+            \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+
+            \draw[brown,->](s.east)--node[right,above,font=\small]{1/1} (p1.west);
+            \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p2.west);
+            \draw[brown,->](s.east)--node[midway,left,font=\small]{1/1} (p3.west);
+            \draw[brown,->](s.east)--node[midway,right,font=\small]{1/1} (p4.west);
+            \draw[brown,->](s.east)--node[midway,left,font=\small]{1/1} (p5.west);
+
+
+            \draw[brown,->](f1.east)--node[midway,above,font=\small]{1/1} (t.west);
+            \draw[brown,->](f2.east)--node[midway,left,font=\small]{1/1} (t.west);
+            \draw[brown,->](f3.east)--node[left,right,font=\small]{1/1} (t.west);
+            \draw[brown,->](f4.east)--node[left,right,font=\small]{1/1} (t.west);
+            \draw[brown,->](f5.east)--node[left,right,font=\small]{1/1} (t.west);
+
+
+            
+            \node[fill=capri, circle] (p1) at (0,0) {1};
+            \node[fill=capri, circle] (p2) at (0,-1) {2};
+            \node[fill=capri, circle] (p3) at (0,-2) {3};
+             \node[fill=capri, circle] (p4) at (0,-3) {4};
+            \node[fill=capri, circle] (p5) at (0,-4) {5};
+             
+            
+            
+            
+            \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+            \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+            \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+            \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+            \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+            
+            % Potential Pairs
+            \draw[brown,->] (p1.east)--node[midway,above,font=\small]{1/1}  (f2.west);
+            \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+            \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+            \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+            \draw[brown,->] (p2) -- node[near end,right,font=\small]{1/1} (f4);
+             \draw[brown,->] (p3.east) -- node[near end,right,font=\small]{1/1}  (f1.west);
+              \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+               \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+                \draw[brown,->] (p4.east) -- node[near start,above,font=\small]{1/1}  (f3.west);
+                  \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+               \draw[brown,->] (p5.east) -- node[near end,below,font=\small]{1/1}  (f5.west);
+                \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+            
+            
+            
+
+        \end{tikzpicture}   \caption{Found augmenting path -5,no more augmenting path possible}  \end{center} \end{figure}
+As we can see,we have finally found all possible augmenting paths.There is no more path available with remaining capacity \textgreater{0} .\newline 
+Here,the quantity of maximum flow can be obtained by two ways:
+\begin{itemize}
+    \item Summation of flow leaving the source node $s$:
+    \[
+        \sum_{v \in V} f(s, v)
+    \]
+    where $V$ is the set of vertices and $f(u, v)$ denotes the flow from vertex $u$ to vertex $v$.
+    
+    \item Summation of flow entering the sink (destination) node $t$:
+    \[
+        \sum_{v \in V} f(v, t)
+    \]
+    where $V$ is the set of vertices and $f(u, v)$ denotes the flow from vertex $u$ to vertex $v$.
+\end{itemize}
+
+Here,we find it to be equal to 5.
+It implies we have become able to match 5 pairs.
+
+\newpage
+
+
+\section{Analysing the solution}
+
+          Here,we can not augment the paths anymore.We have already found the max flow of the network.The max flow=5.Hence,Number of matching=5.
+        
+        \textbf{Pairs are} : 
+        \begin{enumerate}
+            \item Person 1,Item 2
+            
+            \item Person 2,Item 4
+            
+            \item Person 3,Item 1
+            
+            \item Person 4,Item 3
+            
+            \item Person 5,Item 5
+        \end{enumerate}
+        
+        Using greedy approach,we found 4 pairs which is not maximum.\newline
+        Thus,max flow problem helped us find an optimal solution in polynomial time.
+
+
+
+
+
+
+\section{Time Complexity}
+Edmond Karp's algorithm uses BFS as we need the shortest augmenting path from source to sink. Running time of BFS is $O(V + E)$ . Path search can take upto $O(V E)$ time. Some calculation and reduction leads us to a time complexity of $O((V+E)VE) = O((E)VE) = O(VE^{2})$.
+
+\section{Extension}
+Now some special cases will be discussed where the algorithm needs to be extended to solve the problem.
+
+\newpage
+
+\subsection{Allowing multiple items for a person}
+In this case we will make the capacity of the edges  from source to person, equal to the number of items they can take. Then we can use the same algorithm to find the maximum matching. \\
+For example if Person 2 is allowed to take 3 items and person 5 is allowed to take 2 items:
+
+
+\begin{figure}[H] \begin{center}
+    \begin{tikzpicture}
+        \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+        \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+    
+        % Source to person
+        \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
+    
+        % Food items to destination
+        \draw[->](f1.east)--node[midway,above,font=\small]{0/1} (t.west);
+        \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+        \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f5.east)--node[left,right,font=\small]{0/1} (t.west);
+    
+        % Remaining nodes and edges
+        \node[fill=capri, circle] (p1) at (0,0) {1};
+        \node[fill=capri, circle] (p2) at (0,-1) {2};
+        \node[fill=capri, circle] (p3) at (0,-2) {3};
+        \node[fill=capri, circle] (p4) at (0,-3) {4};
+        \node[fill=capri, circle] (p5) at (0,-4) {5};
+         
+        \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+        \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+        \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+        \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+        \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+        
+        % Potential Pairs
+        \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+        \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+        \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+        \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+        \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+        \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+        \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+    \end{tikzpicture}
+    \caption{Allowing multiple item(s) for a person}  \end{center} \end{figure}
+
+
+\subsection{Multiple copies of item available}
+This case almost similar to the previous one. We will make the capacity of the edges from item to sink, equal to the number of copies of the item available. Then we can use the regular network flow algorithm to find the maximum matching. \\
+For example if item 1 has 3 copies and item 5 has 4 copies:
+
+
+\begin{figure}[H] \begin{center}
+    \begin{tikzpicture}
+        \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+        \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
+    
+        % Source to person
+        \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
+    
+        % Food items to destination
+        \draw[->](f1.east)--node[midway,above,font=\small]{0/\textcolor{red}{3}} (t.west);
+        \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+        \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f5.east)--node[left,right,font=\small]{0/\textcolor{red}{4}} (t.west);
+    
+        % Remaining nodes and edges
+        \node[fill=capri, circle] (p1) at (0,0) {1};
+        \node[fill=capri, circle] (p2) at (0,-1) {2};
+        \node[fill=capri, circle] (p3) at (0,-2) {3};
+        \node[fill=capri, circle] (p4) at (0,-3) {4};
+        \node[fill=capri, circle] (p5) at (0,-4) {5};
+         
+        \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+        \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+        \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+        \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+        \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+        
+        % Potential Pairs
+        \draw[->] (p1.east)--node[midway,above,font=\small]{0/1}  (f2.west);
+        \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+        \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+        \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
+        \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+        \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+        \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
+    \end{tikzpicture}
+    \caption{Multiple copies of items available}  \end{center} \end{figure}
+
 
 \subsection{Taking same item multiple times}
 We have to make the edges from person to item have capacity, the number of times that particular person can take that particular item. Then we can use our network flow algorithm to solve the problem. \\
 For example if Person1 can take Item 2 upto 5 times:
 
-\begin{figure}[!h]
-\centering
-\begin{tikzpicture} 
-    \node[fill=yellow,rectangle](s) at (-3,-1.6) {S};
-    \node[fill=bittersweet,rectangle](t) at (7,-1.6) {t};
 
-    \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
-    \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
-    \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
-    \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
-    \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
-
-
-    \draw[->](f1.east)--node[midway,above,font=\small]{0/\textcolor{red}{3}} (t.west);
-    \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
-    \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
-    \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
-    \draw[->](f5.east)--node[left,right,font=\small]{0/\textcolor{red}{4}} (t.west);
-
-
+\begin{figure}[H] \begin{center}
+    \begin{tikzpicture}
+        \node[fill=yellow,rectangle](s) at (-4,-2) {S};
+        \node[fill=bittersweet,rectangle](t) at (9,-2) {t};
     
-    \node[fill=capri, circle] (p1) at (0,0) {1};
-    \node[fill=capri, circle] (p2) at (0,-0.8) {2};
-    \node[fill=capri, circle] (p3) at (0,-1.6) {3};
-     \node[fill=capri, circle] (p4) at (0,-2.4) {4};
-    \node[fill=capri, circle] (p5) at (0,-3.2) {5};
-     
+        % Source to person
+        \draw[->](s.east)--node[right,above,font=\small]{0/1} (p1.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/\textcolor{red}{3}} (p2.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/1} (p3.west);
+        \draw[->](s.east)--node[midway,right,font=\small]{0/1} (p4.west);
+        \draw[->](s.east)--node[midway,left,font=\small]{0/\textcolor{red}{2}} (p5.west);
     
+        % Food items to destination
+        \draw[->](f1.east)--node[midway,above,font=\small]{0/\textcolor{red}{3}} (t.west);
+        \draw[->](f2.east)--node[midway,left,font=\small]{0/1} (t.west);
+        \draw[->](f3.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f4.east)--node[left,right,font=\small]{0/1} (t.west);
+        \draw[->](f5.east)--node[left,right,font=\small]{0/\textcolor{red}{4}} (t.west);
     
-    
-    \node[fill=grannysmithapple, rectangle] (f1) at (4,0) {1};
-    \node[fill=grannysmithapple, rectangle] (f2) at (4,-0.8) {2};
-    \node[fill=grannysmithapple, rectangle] (f3) at (4,-1.6) {3};
-    \node[fill=grannysmithapple, rectangle] (f4) at (4,-2.4) {4};
-    \node[fill=grannysmithapple, rectangle] (f5) at (4,-3.2) {5};
-    
-    % Potential Pairs
-    \draw[->] (p1.east)--node[midway,above,font=\small]{0/\textcolor{red}{5}}  (f2.west);
-    \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
-    \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
-    \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
-    \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
-     \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
-      \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
-       \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
+        % Remaining nodes and edges
+        \node[fill=capri, circle] (p1) at (0,0) {1};
+        \node[fill=capri, circle] (p2) at (0,-1) {2};
+        \node[fill=capri, circle] (p3) at (0,-2) {3};
+        \node[fill=capri, circle] (p4) at (0,-3) {4};
+        \node[fill=capri, circle] (p5) at (0,-4) {5};
+         
+        \node[fill=grannysmithapple, rectangle] (f1) at (6,0) {1};
+        \node[fill=grannysmithapple, rectangle] (f2) at (6,-1) {2};
+        \node[fill=grannysmithapple, rectangle] (f3) at (6,-2) {3};
+        \node[fill=grannysmithapple, rectangle] (f4) at (6,-3) {4};
+        \node[fill=grannysmithapple, rectangle] (f5) at (6,-4) {5};
+        
+        % Potential Pairs
+        \draw[->] (p1.east)--node[midway,above,font=\small]{0/\textcolor{red}{5}}  (f2.west);
+        \draw[->] (p1) -- node[near start,left,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,left,font=\small]{0/1}  (f2);
+        \draw[->] (p2) -- node[midway,right,font=\small]{0/1}  (f3);
+        \draw[->] (p2) -- node[near end,right,font=\small]{0/1} (f4);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f1.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f3.west);
+        \draw[->] (p3.east) -- node[near end,right,font=\small]{0/1}  (f5.west);
         \draw[->] (p4.east) -- node[near start,above,font=\small]{0/1}  (f3.west);
-          \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
-       \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
+        \draw[->] (p5.east) -- node[near start,above,font=\small]{0/1} (f3.west);
+        \draw[->] (p5.east) -- node[near end,below,font=\small]{0/1}  (f5.west);
         \draw[->] (p5.east) -- node[near end,above,font=\small]{0/1} (f4.west);
-
-\end{tikzpicture}
-\end{figure}
+    \end{tikzpicture}
+    \caption{Allowed to take same item multiple times}  \end{center} \end{figure}
         
 
 \section{References}
